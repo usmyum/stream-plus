@@ -1,66 +1,132 @@
+# StreamPlus Web Application
+
 <p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+## Table of Contents
 
-## About Laravel
+- [Introduction](#introduction)
+- [Features](#features)
+- [Getting Started](#getting-started)
+- [Usage/Setup](#usage)
+    
+## Introduction
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+This is a multi-step onboarding form developed using Laravel. It allows users to fill out their information in a
+structured manner, improving the overall user experience. The form collects user information, address details, and
+payment information (if applicable) in a step-by-step format.
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## Features
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+- **User Information Collection**: Collects name, email, and phone number.
+- **Address Information**: Gathers the user's address details across multiple fields.
+- **Conditional Payment Step**: Displays payment information fields based on the selected subscription type.
+- **Real-time Validation**: Validates input fields on blur events, providing immediate feedback.
+- **Error Handling**: Displays error messages and highlights invalid fields.
+- **Responsive Design**: Works well on both desktop and mobile devices.
 
-## Learning Laravel
+## Getting Started
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+### Prerequisites
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+- Download & install Docker on for your machine
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+### Installation
 
-## Laravel Sponsors
+1. Clone the repository:
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+   ```bash
+   git clone https://github.com/usmyum/stream-plus
+   cd stream-plus
+   ```
 
-### Premium Partners
+Copy the env file as:
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[WebReinvent](https://webreinvent.com/)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Jump24](https://jump24.co.uk)**
-- **[Redberry](https://redberry.international/laravel/)**
-- **[Active Logic](https://activelogic.com)**
-- **[byte5](https://byte5.de)**
-- **[OP.GG](https://op.gg)**
+   ```bash
+   cp .env.example .env
+   ```
 
-## Contributing
+2. Docker Setup
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+### Setting Up with Docker
 
-## Code of Conduct
+Lets build the project first
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+   ```bash
+   docker-compose build --no-cache
+   ```
 
-## Security Vulnerabilities
+   ```bash
+   docker-compose up -d
+   ```
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+### Usage
 
-## License
+3. Run the command to list docker containers
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+   ```bash
+   docker ps
+   ```
+
+You can see all the running containers in here
+
+Run the laravel container named, 'streamplus-app' as follows:
+
+   ```bash
+   docker exec -it streamplus-app bash
+   ```
+
+Run the migrations with the command
+
+   ```bash
+   php artisan migrate
+   ```
+
+Run composer installation
+
+   ```bash
+   composer install
+   ```
+
+Run key generation
+
+   ```bash
+   php artisan key:generate
+   ```
+
+Clear the caches:
+
+   ```bash
+   php artisan cache:clear
+   php artisan config:cache
+   composer dumpautoload
+   ```
+
+Run the migrations:
+
+   ```bash
+   php artisan migrate
+   ```
+
+### Known Issues that could occur
+
+If you come across any failure in generating key, like key is generated but error still persists, trying considering the
+following:
+
+   ```bash
+   docker-compose down
+   docker-compose up
+   ```
+
+If you come across any failure in migrations or testing, please consider changing the DB_HOST value in the .env
+
+   ```bash
+   DB_HOST=mysql OR DB_HOST=127.0.0.1 or localhost
+   ```
+
+## Endpoints
+
+- **GET** `/`
+  a welcome screen of laravel
+- **GET** `/register`
+  register form for the user subscription
+
